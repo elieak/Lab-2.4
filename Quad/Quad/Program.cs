@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quad
 {
     public class Program
     {
-        public bool CheckArguments(string[] args1)
+        public bool CheckArguments(string[] args)
         {
-            if (args1.Length < 3)
+            if (args.Length < 3)
             {
 
                 Console.WriteLine("there aren't 3 arguments");
@@ -24,47 +20,40 @@ namespace Quad
         {
             if (double.TryParse(args1[0], out a) && double.TryParse(args1[1], out b) && double.TryParse(args1[2], out c))
                 return true;
-            Console.WriteLine("parsing didn't succeed");
+            Console.WriteLine("Could not parse user input");
             a = 0;
             b = 0;
             c = 0;
             return false;
         }
-        public double OneSolutionA(double a, double b, double c)
-        {
-            return (-1) * c / b;
+        public double SolutionA(double a, double b, double c) => (-1) * c / b;
 
-        }
-        public double OneSolutionB(double a, double b, double c)
-        {
-            return -Math.Sqrt(c) / Math.Sqrt(a);
-        }
+        public double SolutionB(double a, double b, double c) => -Math.Sqrt(c) / Math.Sqrt(a);
+
         public bool NoSolution(out double toSqrt, double a, double b, double c)
         {
             toSqrt = Math.Pow(b, 2) - 4 * a * c;
             if (toSqrt < 0)
             {
-                Console.WriteLine("no solution");
+                Console.WriteLine("No Solution");
                 return false;
             }
-
             return true;
         }
-        public string Stringequation(double toSqrt, double a, double b, double c)
-        {
-            return ("X1 = " + ((toSqrt - b) / (2 * a)).ToString(CultureInfo.InvariantCulture) + ",X2 = " + ((-1) * (toSqrt + b) / (2 * a)));
-        }
+        public string Stringequation(double toSqrt, double a, double b, double c) => 
+            ("X1 = " + ((toSqrt - b) / (2 * a)).ToString(CultureInfo.InvariantCulture) + ",X2 = " + ((-1) * (toSqrt + b) / (2 * a)));
+
         static void Main(string[] args)
         {
             double a, b, c, toSqrt;
-            Program q = new Program();
-            if (!q.CheckArguments(args))
+            var programInstance = new Program();
+            if (!programInstance.CheckArguments(args))
             {
                 Console.ReadLine();
                 return;
             }
 
-            if (!q.CheckParse(args, out a, out b, out c))
+            if (!programInstance.CheckParse(args, out a, out b, out c))
             {
                 Console.ReadLine();
                 return;
@@ -72,25 +61,25 @@ namespace Quad
 
             if (a == 0)
             {
-                Console.WriteLine("x = {0}", q.OneSolutionA(a, b, c));
+                Console.WriteLine($"x = {programInstance.SolutionA(a, b, c)}");
                 Console.ReadLine();
                 return;
             }
             if (b == 2 * a * c)
             {
-                Console.WriteLine("x = {0}", q.OneSolutionB(a, b, c));
+                Console.WriteLine($"x = {programInstance.SolutionB(a, b, c)}");
                 Console.ReadLine();
                 return;
             }
 
-            if (q.NoSolution(out toSqrt, a, b, c) == false)
+            if (programInstance.NoSolution(out toSqrt, a, b, c) == false)
             {
                 Console.ReadLine();
                 return;
             }
 
             toSqrt = Math.Sqrt(toSqrt);
-            Console.WriteLine(q.Stringequation(toSqrt, a, b, c));
+            Console.WriteLine(programInstance.Stringequation(toSqrt, a, b, c));
             Console.ReadLine();
         }
     }
