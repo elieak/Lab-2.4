@@ -2,6 +2,8 @@
 
 namespace QuadTest
 {
+    //"UnitTest1" isn't a good name for a UnitTest class, as you can't know what this file is testing.
+    //QuadTests could have been better, or even just "Quad", it is already in a project named "QuadTest".
     [TestClass]
     public class UnitTest1
     {
