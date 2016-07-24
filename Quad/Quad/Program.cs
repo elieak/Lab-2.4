@@ -3,6 +3,7 @@ using System.Globalization;
 
 namespace Quad
 {
+    //Consider extracting this logic to a different class.
     public class Program
     {
         public bool CheckArguments(string[] args)
@@ -40,6 +41,8 @@ namespace Quad
             }
             return true;
         }
+
+        //C# 6 feature - nice.
         public string Stringequation(double toSqrt, double a, double b, double c) => 
             ("X1 = " + ((toSqrt - b) / (2 * a)).ToString(CultureInfo.InvariantCulture) + ",X2 = " + ((-1) * (toSqrt + b) / (2 * a)));
 
